@@ -10,9 +10,9 @@ def childa():
 def childb():
     return render_template("child-B.html")
 
-@app.route("/parent")
+@app.route("/")
 def parent():
-    return render_template("parent.html")
+    return render_template("child-A.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
