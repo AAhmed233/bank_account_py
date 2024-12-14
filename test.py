@@ -24,7 +24,6 @@ def add():
         return 'Add ok',201
     return 'No add',500
 
-
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -46,7 +45,6 @@ def profile():
     programe_age = request.args.get("age",0)
     return f"<h1 style='color:red;text-align:center'>your age is {programe_age}</h1>"
 
+
 if __name__ == "__main__":
     app.run(debug=True)
-
-

@@ -17,7 +17,7 @@ class Storage:
         for product in Storage.stor:
             if product.ref == ref:
                 return product
-        return None     
+        return None # type: ignore
     
 if __name__ == "__main__":
     printer:Product=Product('p001','Hp Laser',9000)
