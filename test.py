@@ -1,6 +1,7 @@
 from flask import Flask,request,render_template,jsonify # type: ignore
 from services import Storage
 from model import Product
+
 app = Flask(__name__)
 
 @app.route("/store")
