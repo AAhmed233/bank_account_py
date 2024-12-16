@@ -34,6 +34,11 @@ class Bank:
             else:
                 print(product.acountId, product.balance)
 
+    @staticmethod
+    def addTransfer(accountId, transactionType, amount, timestamp, relatedAccountId):
+        value = (accountId, transactionType, amount, timestamp, relatedAccountId)
+        insertTransaction(value)
+        
 
 if __name__ == "__main__":
     printer:BankAccount = CheckingAccout(1000)

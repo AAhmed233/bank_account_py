@@ -74,7 +74,16 @@ def insertTransaction(values):
     except my.Error as e:
         print(f"Erreur lors de l'exécution de la requête : {e}")
 
+def getAccountById(accountId):
+    try:
+        db = cnx.cursor(dictionary=True)
+        query = "SELECT * FROM bankaccount WHERE id = %s"
+        db.execute(query, (accountId, )) 
+        return db.fetchone()
+    except my.Error as e:
+         print(f"Erreur lors de l'exécution de la requête : {e}")
 
+print(getAccountById(15))   
 
 
 

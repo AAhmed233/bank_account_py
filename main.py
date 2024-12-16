@@ -6,10 +6,13 @@ app = Flask(__name__)
 app.secret_key = "hello"
 app.permanent_session_lifetime = timedelta(minutes=5)
 
+@app.route("/home")
+def Home():
+    return render_template("parent.html")
 
-@app.route("/childa")
-def childa():
-    return render_template("child-A.html")
+@app.route("/create-account")
+def createAccount():
+    return render_template("createAccount.html")
 
 @app.route("/childb")
 def childb():

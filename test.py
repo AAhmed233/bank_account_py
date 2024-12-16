@@ -1,53 +1,58 @@
-from flask import Flask,request,render_template,jsonify # type: ignore
-from services import Storage
-from model import Product
+from model import BankAccount,CheckingAccout,SavingAccount
+from dao import insertChekingAccount,insertTransaction,insertSavingAccount
 
-app = Flask(__name__)
+class Bank:
+    bank:list[BankAccount]=[]
 
-@app.route("/store")
-def listProduct():
-    return Storage.list()
+    @staticmethod
+    def add(account:BankAccount)->bool:
+        Bank.bank.append(account)
+        if isinstance(account, CheckingAccout):
+            value = (account.balance , 'Cheking', 0)
+            insertChekingAccount(value)
+        else:
+            value = (account.balance , 'Saving', account.interestRate)
+            insertSavingAccount(value)
+        return True
+    
+    @staticmethod
+    def list()->list[BankAccount]:
+        return Bank.bank
+    
+    @staticmethod
+    def search(id:int)->BankAccount:
+        for product in Bank.bank:
+            if product.acountId == id:
+                return product
+        return None
+         
+    @staticmethod
+    def print(list):
+        for product in list:
+            if isinstance(product, SavingAccount):
+                print(product.acountId, product.balance, product.interestRate)
+            else:
+                print(product.acountId, product.balance)
 
-@app.route("/store/search",methods=['GET','POST'])
-def search():
-    ref = request.form.get('ref')
-    if ref != None:
-        product:Product|None=Storage.search(ref)
-        if Product != None:
-            return jsonify(product)
-    return "Not found"
-
-@app.route("/store/add",methods=['POST'])
-def add():
-    body= request.get_json()
-    product:Product=Product(**body)
-    if Storage.add(product):
-        return 'Add ok',201
-    return 'No add',500
-
-
-@app.route("/")
-def index():
-    return render_template("index.html")
-
-
-
-#render_template("index.html")
-
-# PAth Request
-@app.route("/hello/<name>")
-def say_hello(name:str):
-    return f"<h1 style='color:red;text-align:center'>Hello {name}</h1>"
-
-#render_template("index.html",p=name) 
-#f"<h1 style='color:red;text-align:center'>Hello {name}</h1>"
-
-@app.route("/profile")
-def profile():
-    programe_age = request.args.get("age",0)
-    return f"<h1 style='color:red;text-align:center'>your age is {programe_age}</h1>"
+    @staticmethod
+    def addTransfer(accountId, transactionType, amount, timestamp, relatedAccountId):
+        value = (accountId, transactionType, amount, timestamp, relatedAccountId)
+        insertTransaction(value)
+        
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    printer:BankAccount = CheckingAccout(1000)
+    lapop:BankAccount = SavingAccount(0.3, 5000)
 
+    Bank.add(printer)
+    Bank.add(lapop)
+    lapop:BankAccount = SavingAccount(0.5, 7000)
+    Bank.add(lapop)
+    Bank.print(Bank.list())
+    id = 2
+    for product in Bank.list():
+        if product.acountId == id :
+            product.withdraw(900)
+            product.transfer(Bank.search(1), 100)
 
+    Bank.print(Bank.list())
