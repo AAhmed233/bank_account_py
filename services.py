@@ -11,7 +11,7 @@ class Bank:
             value = (account.balance , 'Cheking', 0)
             insertChekingAccount(value)
         else:
-            value = (account.balance , 'Saving', account.interestRate)
+            value = (account.balance , 'Saving', account.interestRate) # type: ignore
             insertSavingAccount(value)
         return True
     
@@ -24,7 +24,7 @@ class Bank:
         for product in Bank.bank:
             if product.acountId == id:
                 return product
-        return None
+        return None # type: ignore
          
     @staticmethod
     def print(list):

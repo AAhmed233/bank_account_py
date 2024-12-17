@@ -1,6 +1,51 @@
 {% extends "parent.html" %}
 {% block title %}Create Account{% endblock %}
 {% block blockChild %}
-<h1>Je veux cree un compt</h1>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Formulaire d'inscription</h1>
+    <form>
+      <!-- Nom -->
+      <div class="mb-3">
+        <label for="nom" class="form-label">Nom complet</label>
+        <input type="text" class="form-control" id="nom" placeholder="Entrez votre nom">
+      </div>
+      <!-- Email -->
+      <div class="mb-3">
+        <label for="email" class="form-label">Adresse email</label>
+        <input type="email" class="form-control" id="email" placeholder="Entrez votre email">
+      </div>
+      <!-- Mot de passe -->
+      <div class="mb-3">
+        <label for="password" class="form-label">Mot de passe</label>
+        <input type="password" class="form-control" id="password" placeholder="Entrez un mot de passe">
+      </div>
+      <!-- Sélection -->
+      <div class="mb-3">
+        <label for="genre" class="form-label">Genre</label>
+        <select class="form-select" id="genre">
+          <option selected>Choisissez une option</option>
+          <option value="1">Homme</option>
+          <option value="2">Femme</option>
+          <option value="3">Autre</option>
+        </select>
+      </div>
+      <!-- Zone de texte -->
+      <div class="mb-3">
+        <label for="message" class="form-label">Message</label>
+        <textarea class="form-control" id="message" rows="4" placeholder="Écrivez votre message ici"></textarea>
+      </div>
+      <!-- Checkbox -->
+      <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" id="conditions">
+        <label class="form-check-label" for="conditions">
+          J'accepte les termes et conditions
+        </label>
+      </div>
+      <!-- Bouton -->
+      <div class="d-grid">
+        <button type="submit" class="btn btn-primary">S'inscrire</button>
+      </div>
+    </form>
+</div>
 
 {% endblock %}
